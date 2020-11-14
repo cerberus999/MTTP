@@ -2,7 +2,7 @@ package registros;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable, Comparable<Usuario> {
+public class Usuario extends Registro implements Serializable, Comparable<Registro> {
     private String login;
     private String contraseña;
     private String nombreCmpl;
@@ -46,11 +46,6 @@ public class Usuario implements Serializable, Comparable<Usuario> {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
-    @Override
-    public int compareTo(Usuario usr) {
-        return login.compareTo(usr.getLogin());
-    }
     
     public String toStringList(){
         String res = "";
@@ -69,5 +64,11 @@ public class Usuario implements Serializable, Comparable<Usuario> {
             tabs--;
         }
         return string;
+    }
+
+    @Override
+    public int compareTo(Registro r) {
+        Usuario u = (Usuario) r;
+        return login.compareTo(u.getLogin());
     }
 }

@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner lector = new Scanner(System.in);
-    private static ListaCDE<Cliente> listaClientes;
-    private static ListaCDE<Usuario> listaUsuarios;
+    private static ListaCDE<Registro> listaClientes;
+    private static ListaCDE<Registro> listaUsuarios;
 
     public static void main(String[] args) {
         recuperarLista(listaClientes, "Clientes");
@@ -50,7 +50,7 @@ public class Main {
             case 2:
                 System.out.println("Ingrese el nro de carnet que desea buscar:");
                 lector.nextLine();
-                Cliente buscado = buscarCliente(lector.nextLine());
+                Registro buscado = buscarRegistro(lector.nextLine());
                 if (buscado != null) {
                     printDatos(buscado);
                 } else {
@@ -97,7 +97,7 @@ public class Main {
     }
 
     private static void almacenamientoOrdenado(Cliente cli) {
-        NodoDE<Cliente> aux = null;
+        NodoDE<Registro> aux = null;
         if (listaClientes.isEmpty()) {
             listaClientes.add(cli);
         } else if (cli.compareTo(listaClientes.getPosition(0)) < 0) {
@@ -110,7 +110,7 @@ public class Main {
         }
     }
 
-    private static void almacenamientoOrdenado(int[] limites, NodoDE<Cliente> aux, Cliente cli) {
+    private static void almacenamientoOrdenado(int[] limites, NodoDE<Registro> aux, Cliente cli) {
         int index = limites[0] + (limites[1] - limites[0]) / 2;
         aux = listaClientes.getNodo(index, aux);
         if (cli.compareTo(aux.getDato()) == 0) {
@@ -124,22 +124,22 @@ public class Main {
         }
     }
 
-    private static Cliente buscarCliente(String CI) {
-        Cliente aux = new Cliente(new String[]{CI, "", "", "", ""});
-        Cliente res = null;
+    private static Registro buscarRegistro(String CI) {
+        Registro aux = new Cliente(new String[]{CI, "", "", "", ""});
+        Registro res = null;
         if (!listaClientes.isEmpty()) {
             if (aux.compareTo(listaClientes.getPosition(0)) < 0 || aux.compareTo(listaClientes.getPosition(listaClientes.size() - 1)) > 0) {
                 res = null;
             } else {
                 int[] limites = {0, listaClientes.size()};
-                res = buscarCliente(limites, null, aux);
+                res = buscarRegistro(limites, null, aux);
             }
         }
         return res;
     }
 
-    private static Cliente buscarCliente(int[] limites, NodoDE<Cliente> aux, Cliente comparador) {
-        Cliente res = null;
+    private static Registro buscarRegistro(int[] limites, NodoDE<Registro> aux, Registro comparador) {
+        Registro res = null;
         int index = limites[0] + (limites[1] - limites[0]) / 2;
         aux = listaClientes.getNodo(index, aux);
         if (comparador.compareTo(aux.getSig().getDato()) < 0 && comparador.compareTo(aux.getDato()) > 0) {
@@ -147,22 +147,23 @@ public class Main {
         } else if (comparador.compareTo(aux.getDato()) == 0) {
             res = aux.getDato();
         } else if (comparador.compareTo(aux.getDato()) >= 0) {
-            res = buscarCliente(new int[]{index, limites[1]}, aux, comparador);
+            res = buscarRegistro(new int[]{index, limites[1]}, aux, comparador);
         } else if (comparador.compareTo(aux.getAnt().getDato()) <= 0) {
-            res = buscarCliente(new int[]{limites[0], index}, aux, comparador);
+            res = buscarRegistro(new int[]{limites[0], index}, aux, comparador);
         }
         return res;
     }
 
-    private static void printDatos(Cliente c) {
+    private static void printDatos(Registro r) {
+        Cliente c = (Cliente) r; 
         System.out.println("CI:" + c.getCI()
                 + "\nNombre Completo: " + c.getNombre() + c.getApellidos()
                 + "\nNumero de telefono: " + c.getNumeroTelf()
                 + "\neMail: " + c.geteMail());
     }
 
-    private static void printDataList(ListaCDE<Cliente> lista) {
-        NodoDE<Cliente> aux = null;
+    private static void printDataList(ListaCDE<Registro> lista) {
+        NodoDE<Registro> aux = null;
         for (int i = 0; i < lista.size(); i++) {
             aux = lista.getNodo(i, aux);
             System.out.println(aux.getDato().toStringList());
@@ -178,9 +179,9 @@ public class Main {
         }
     }
 
-    public static void recuperarLista(ListaCDE<?> lista, String nombre) {
+    public static void recuperarLista(ListaCDE<Registro> lista, String nombre) {
         try ( ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(nombre + ".txt"))) {
-            lista = (ListaCDE<?>) entrada.readObject();
+            lista = (ListaCDE<Registro>) entrada.readObject();
             entrada.close();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());

@@ -2,7 +2,7 @@ package registros;
 
 import java.io.Serializable;
 
-public class Cliente implements Comparable<Cliente>, Serializable{
+public class Cliente extends Registro implements Serializable {
     private String CI;
     private String nombre, apellidos;
     private String numeroTelf;
@@ -82,13 +82,14 @@ public class Cliente implements Comparable<Cliente>, Serializable{
      *Unidades = diferencia de primera diferencia entre el primer caracter distinto (izquierda - derecha)
      */
     @Override
-    public int compareTo(Cliente x){
+    public int compareTo(Registro x){
+        Cliente x2 = (Cliente) x;
         int res = 0;
-        int diferencia = CI.length() - x.getCI().length();
+        int diferencia = CI.length() - x2.getCI().length();
         res = diferencia * 100;
         if(diferencia == 0)
             for(int i=0;i<CI.length();i++){
-                diferencia = CI.charAt(i) - x.getCI().charAt(i);
+                diferencia = CI.charAt(i) - x2.getCI().charAt(i);
                 if(diferencia != 0){
                     res = (diferencia * 10) + i;
                     i = CI.length();
@@ -115,4 +116,5 @@ public class Cliente implements Comparable<Cliente>, Serializable{
         }
         return string;
     }
+
 }
