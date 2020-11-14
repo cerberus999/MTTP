@@ -7,10 +7,6 @@ package registros;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Lenovo
- */
 public abstract class Registro implements Comparable<Registro>, Serializable{
     private String comparador;
     
