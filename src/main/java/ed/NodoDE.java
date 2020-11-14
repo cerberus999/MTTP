@@ -2,7 +2,7 @@ package ed;
 
 import java.io.Serializable;
 
-public class NodoDE <T>{
+public class NodoDE <T> implements Serializable{
     NodoDE<T> ant;
     T dato;
     NodoDE<T> sig;

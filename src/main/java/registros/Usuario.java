@@ -49,22 +49,13 @@ public class Usuario extends Registro implements Serializable, Comparable<Regist
     
     public String toStringList(){
         String res = "";
-        res = addTab(login, 2);
-        res = addTab(contraseña, 2);
-        res = addTab(nombreCmpl, 4);
-        res = telefonoRef;
+        res += addTab(login, 2);
+        res += addTab(contraseña, 2);
+        res += addTab(nombreCmpl, 4);
+        res += telefonoRef;
         return res;
     }
     
-    private String addTab(String string,int tabs){
-        int aux = string.length();
-        tabs = tabs - (aux / 8);
-        while(tabs > 0){
-            string = string + "\t";
-            tabs--;
-        }
-        return string;
-    }
 
     @Override
     public int compareTo(Registro r) {

@@ -12,12 +12,12 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner lector = new Scanner(System.in);
-    private static ListaCDE<Registro> listaClientes;
-    private static ListaCDE<Registro> listaUsuarios;
+    private static ListaCDE<Registro> listaClientes = null;
+    private static ListaCDE<Registro> listaUsuarios = null;
 
     public static void main(String[] args) {
-        recuperarLista(listaClientes, "Clientes");
-        recuperarLista(listaUsuarios, "Usuarios");
+        listaClientes = recuperarLista(listaClientes, "Clientes");
+        listaUsuarios = recuperarLista(listaUsuarios, "Usuarios");
         int sec;
         do {
             sec = 0;
@@ -66,7 +66,7 @@ public class Main {
                 registrarUsuario(texto);
                 break;
             case 5:
-                //printDataList(listaUsuarios);
+                printDataList(listaUsuarios);
                 break;
         }
     }
@@ -170,7 +170,7 @@ public class Main {
         }
     }
 
-    public static void guardarLista(ListaCDE<?> lista, String nombre) {
+    public static void guardarLista(ListaCDE<Registro> lista, String nombre) {
         try ( ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(nombre + ".txt"))) {
             salida.writeObject(lista);
             salida.close();
@@ -179,12 +179,14 @@ public class Main {
         }
     }
 
-    public static void recuperarLista(ListaCDE<Registro> lista, String nombre) {
+    public static ListaCDE<Registro> recuperarLista(ListaCDE<Registro> lista, String nombre) {
+        ListaCDE<Registro> ret = new ListaCDE<Registro>();
         try ( ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(nombre + ".txt"))) {
-            lista = (ListaCDE<Registro>) entrada.readObject();
+            ret = (ListaCDE<Registro>) entrada.readObject();
             entrada.close();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+        return ret;
     }
 }

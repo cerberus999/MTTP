@@ -106,15 +106,4 @@ public class Cliente extends Registro implements Serializable {
         res += eMail;
         return res;
     }
-    
-    private String addTab(String string,int tabs){
-        int aux = string.length();
-        tabs = tabs - (aux / 8);
-        while(tabs > 0){
-            string = string + "\t";
-            tabs--;
-        }
-        return string;
-    }
-
 }
