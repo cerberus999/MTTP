@@ -1,6 +1,6 @@
 package registros;
 
-import ed.ListaCDE;
+import ed.*;
 import java.io.Serializable;
 
 
