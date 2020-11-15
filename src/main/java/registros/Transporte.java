@@ -3,13 +3,18 @@ package registros;
 import java.io.Serializable;
 import java.util.Date;
 
-
-
-public class Transporte extends Registro implements Serializable{
+public class Transporte extends Servicio implements Serializable{
     private String destino;
     private Date fechaHoraSalida;
     private int asientosDisponibles;
     //ListaCDE<Venta> venta;
+    
+    public Transporte(String[] datos, int precio, Date fecha, int asientosDisp, Oferta oferta){
+        super(datos[0],datos[1],datos[2],precio,oferta);
+        destino = datos[3];
+        fechaHoraSalida = fecha;
+        asientosDisponibles = asientosDisp;
+    }
 
     public void setDestino(String destino) {
         this.destino = destino;
@@ -46,7 +51,7 @@ public class Transporte extends Registro implements Serializable{
 
     @Override
     public int compareTo(Registro r) {
-        int res = 0;
+        int res;
         Transporte t = (Transporte) r;
         res = destino.compareTo(t.getDestino()) * 10;
         res += fechaHoraSalida.compareTo(t.getFechaHoraSalida());

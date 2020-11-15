@@ -1,11 +1,13 @@
 package registros;
 
+//faltaReg
+
 import ed.*;
 import java.io.Serializable;
 
 
 
-public class Reserva implements Serializable {
+public class Reserva extends Registro implements Serializable {
     private int codigoVuelo;
     private ListaCDE<String> asientos;
     private Cliente cliente;
@@ -38,5 +40,15 @@ public class Reserva implements Serializable {
     //cambiar Cliente
     public void setCliente(Cliente cliente){
         this.cliente=cliente;
+    }
+
+    @Override
+    public String toStringList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(Registro r) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

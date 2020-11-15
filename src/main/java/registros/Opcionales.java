@@ -5,10 +5,7 @@
  */
 package registros;
 
-/**
- *
- * @author Lenovo
- */
+//falta reg
 public class Opcionales {
     
 }

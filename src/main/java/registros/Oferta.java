@@ -5,10 +5,8 @@
  */
 package registros;
 
-/**
- *
- * @author Lenovo
- */
+//falta reg
+
 public class Oferta {
 
     private String descripcion;
