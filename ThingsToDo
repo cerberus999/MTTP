@@ -1,0 +1,11 @@
+Things to do:
+
+1.- Implementar impresion de listas dando 1 dato en MAIN
+2.- Mejorar buscarRegistro(Registro r) para una busqueda versatil en registros
+3.- Terminar la clase Opcionales
+4.- Incorporar clases faltantes al sistema de GUARDADO_PERSISTENTE
+-Oferta
+-Opcionales
+-PaqueteTuristico
+-Reserva
+-Servicio
