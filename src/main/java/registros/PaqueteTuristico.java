@@ -24,7 +24,7 @@ public class PaqueteTuristico implements Serializable
         listaServicios = null;
         itinerario = null;
     }
-    public PaqueteTuristico(int precio, String lugar, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc, Servicio servicio, String itinerario){
+    public PaqueteTuristico(int precio, String lugar, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc, Servicios servicio, String itinerario){
         this. precio = precio;
         this.lugar = lugar;
         this.nombre = nombre;
