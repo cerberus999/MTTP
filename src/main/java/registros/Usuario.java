@@ -2,11 +2,12 @@ package registros;
 
 import java.io.Serializable;
 
-public class Usuario extends Registro implements Serializable, Comparable<Registro> {
+public class Usuario extends Registro implements Serializable {
     private String login;
     private String contraseña;
     private String nombreCmpl;
     private String telefonoRef;
+    private String puesto;
 
     public Usuario(String[] args) {
         login = args[0];
@@ -47,6 +48,14 @@ public class Usuario extends Registro implements Serializable, Comparable<Regist
         this.contraseña = contraseña;
     }
     
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+
+    public String getPuesto() {
+        return puesto;
+    }
+    
     public String toStringList(){
         String res = "";
         res += addTab(login, 2);
@@ -55,7 +64,6 @@ public class Usuario extends Registro implements Serializable, Comparable<Regist
         res += telefonoRef;
         return res;
     }
-    
 
     @Override
     public int compareTo(Registro r) {
