@@ -14,6 +14,7 @@ public class Usuario extends Registro implements Serializable {
         contraseña = args[1];
         nombreCmpl = args[2];
         telefonoRef  = args[3];
+        puesto = args[4];
     }
     
     public void setNombreCmpl(String nombreCmpl) {
@@ -59,9 +60,10 @@ public class Usuario extends Registro implements Serializable {
     public String toStringList(){
         String res = "";
         res += addTab(login, 2);
-        res += addTab(contraseña, 2);
-        res += addTab(nombreCmpl, 4);
-        res += telefonoRef;
+        res += addTab(contraseña, 3);
+        res += addTab(nombreCmpl, 5);
+        res += addTab(telefonoRef,2);
+        res += puesto;
         return res;
     }
 

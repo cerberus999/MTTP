@@ -61,11 +61,19 @@ public class Servicio extends Registro implements Serializable{
 
     @Override
     public String toStringList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String res = "";
+        res += addTab(ubicacion, 2);
+        res += addTab(nombreEmpresa, 3);
+        res += addTab(numeroTelefono, 3);
+        res += addTab("" + precio, 2);
+        res += oferta == null? "0":"" + oferta.getPorcentajeDesc();
+        return res;
     }
 
     @Override
     public int compareTo(Registro r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Servicio s = (Servicio) r;
+        int res = ubicacion.compareTo(s.getUbicacion());
+        return res;
     }
 }

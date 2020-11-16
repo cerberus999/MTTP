@@ -43,9 +43,11 @@ public class Transporte extends Servicio implements Serializable{
     @Override
     public String toStringList() {
         String res = "";
+        res += super.getUbicacion();
         res += addTab(destino, 2);
         res += addTab(fechaHoraSalida.toString(), 2);
-        res += asientosDisponibles;
+        res += addTab("" + asientosDisponibles, 1);
+        res += addTab(super.getNombreEmpresa(), 2);
         return res;
     }
 
@@ -53,7 +55,8 @@ public class Transporte extends Servicio implements Serializable{
     public int compareTo(Registro r) {
         int res;
         Transporte t = (Transporte) r;
-        res = destino.compareTo(t.getDestino()) * 10;
+        res = super.compareTo(r) * 100;
+        res += destino.compareTo(t.getDestino()) * 10;
         res += fechaHoraSalida.compareTo(t.getFechaHoraSalida());
         return res;
     }

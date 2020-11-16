@@ -8,7 +8,6 @@ package registros;
 import java.io.Serializable;
 
 public abstract class Registro implements Comparable<Registro>, Serializable{
-    private String comparador;
     
     public abstract String toStringList();
     public abstract int compareTo(Registro r);

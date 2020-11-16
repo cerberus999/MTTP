@@ -5,8 +5,6 @@ package registros;
 import ed.*;
 import java.io.Serializable;
 
-
-
 public class Reserva extends Registro implements Serializable {
     private int codigoVuelo;
     private ListaCDE<String> asientos;

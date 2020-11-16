@@ -5,7 +5,8 @@
  */
 package registros;
 
-//falta reg
-public class Opcionales {
+import java.io.Serializable;
+
+public class Opcionales implements Serializable{
     
 }

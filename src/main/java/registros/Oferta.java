@@ -5,9 +5,9 @@
  */
 package registros;
 
-//falta reg
+import java.io.Serializable;
 
-public class Oferta {
+public class Oferta implements Serializable{
 
     private String descripcion;
     private int porcentajeDescuento;
@@ -20,5 +20,4 @@ public class Oferta {
     public int getPorcentajeDesc() {
         return porcentajeDescuento;
     }
-    
 }
