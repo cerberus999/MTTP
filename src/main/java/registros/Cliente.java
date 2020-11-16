@@ -2,28 +2,27 @@ package registros;
 
 import java.io.Serializable;
 
-public class Cliente implements Comparable<Cliente>, Serializable{
+public class Cliente extends Registro implements Serializable {
     private String CI;
     private String nombre, apellidos;
     private String numeroTelf;
     private String eMail;
+    private Opcionales opcionales;
     
-    //private Opcional opc = null;
-
     public Cliente(String[] args){
-        setCI(args[0]);
-        setNombre(args[1]);
-        setApellidos(args[2]);
-        setNumeroTelf(args[3]);
-        seteMail(args[4]);
+        CI = args[0];
+        nombre = args[1];
+        apellidos = args[2];
+        numeroTelf = args[3];
+        eMail = args[4];
     }
 
     public Cliente(String ci,String nombre, String apellidos, String numeroTelefono,String eMail){
-        setCI(ci);
-        setNombre(nombre);
-        setApellidos(apellidos);
-        setNumeroTelf(numeroTelefono);
-        seteMail(eMail);
+        CI = ci;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.numeroTelf = numeroTelefono;
+        this.eMail = eMail;
     }
 
     public String getCI() {
@@ -65,6 +64,14 @@ public class Cliente implements Comparable<Cliente>, Serializable{
     public void seteMail(String eMail) {
         this.eMail = eMail;
     }
+    
+    public void setOpcionales(Opcionales opcionales) {
+        this.opcionales = opcionales;
+    }
+
+    public Opcionales getOpcionales() {
+        return opcionales;
+    }
 
     @Override
     public String toString(){
@@ -82,7 +89,8 @@ public class Cliente implements Comparable<Cliente>, Serializable{
      *Unidades = diferencia de primera diferencia entre el primer caracter distinto (izquierda - derecha)
      */
     @Override
-    public int compareTo(Cliente x){
+    public int compareTo(Registro r){
+        Cliente x = (Cliente) r;
         int res = 0;
         int diferencia = CI.length() - x.getCI().length();
         res = diferencia * 100;
@@ -94,25 +102,22 @@ public class Cliente implements Comparable<Cliente>, Serializable{
                     i = CI.length();
                 }
             }
+        /*No funcional con letras en el carnet
+        Integer aux1 = 0, aux2 = 0;
+        aux1 = aux1.parseInt(CI);
+        aux2 = aux2.parseInt(x.getCI());
+        res = aux1.compareTo(aux2);
+        */
         return res;
     }
     
     public String toStringList(){
         String res = "";
         res += addTab(CI,2);
-        res += addTab(nombre + apellidos, 4);
+        res += addTab(nombre + " " + apellidos, 4);
         res += addTab(numeroTelf,2);
         res += eMail;
         return res;
     }
     
-    private String addTab(String string,int tabs){
-        int aux = string.length();
-        tabs = tabs - (aux / 8);
-        while(tabs > 0){
-            string = string + "\t";
-            tabs--;
-        }
-        return string;
-    }
 }

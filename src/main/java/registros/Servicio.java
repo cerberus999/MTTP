@@ -2,43 +2,53 @@ package registros;
 
 import java.io.Serializable;
 
-/**
- * Write a description of class servicios here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Servicio implements Serializable{
+//falta reg
+
+public class Servicio extends Registro implements Serializable{
+    private String ubicacion;
     private String nombreEmpresa;
-    private String rubro;
     private String numeroTelefono;
-    private String eMail;
-    private String ciudad;
-    private String direccion;
-    
-    public Servicio(String nombreEmpresa, String rubro, String numeroTelefono,String eMail,String ciudad,String direccion){
-        setNombreEmpresa(nombreEmpresa);
-        setRubro(rubro);
-        setNumeroTelefono(numeroTelefono);
-        setEmail(eMail);
-        setCiudad(ciudad);
-        setDireccion(direccion);
+    private int precio;
+    Oferta oferta;
+
+    public Servicio(String ubicacion, String nombreEmpresa, String numeroTelf, int precio, Oferta oferta){
+        this.ubicacion = ubicacion;
+        this.nombreEmpresa = nombreEmpresa;
+        numeroTelefono = numeroTelf;
+        this.precio = precio;
+        this.oferta = oferta;
     }
     
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public void setOferta(Oferta oferta) {
+        this.oferta = oferta;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public Oferta getOferta() {
+        return oferta;
+    }
+
     public String getNombreEmpresa(){
         return nombreEmpresa;
     }
     
     public void setNombreEmpresa(String nombreEmpresa){
         this.nombreEmpresa = nombreEmpresa;
-    }
-    
-    public String getRubro(){
-        return rubro;
-    }
-    
-    public void setRubro(String rubro){
-        this.rubro = rubro;
     }
     
     public String getNumeroTelefono() {
@@ -49,27 +59,21 @@ public class Servicio implements Serializable{
         this.numeroTelefono = numeroTelefono;
     }
 
-    public String getEmail() {
-        return eMail;
+    @Override
+    public String toStringList() {
+        String res = "";
+        res += addTab(ubicacion, 2);
+        res += addTab(nombreEmpresa, 3);
+        res += addTab(numeroTelefono, 3);
+        res += addTab("" + precio, 2);
+        res += oferta == null? "0":"" + oferta.getPorcentajeDesc();
+        return res;
     }
 
-    public void setEmail(String eMail) {
-        this.eMail = eMail;
-    }
-    
-    public String getCiudad(){
-        return ciudad;
-    }
-    
-    public void setCiudad(String ciudad){
-        this.ciudad = ciudad;
-    }
-    
-    public String getDireccion(){
-        return direccion;
-    }
-    
-    public void setDireccion(String direccion){
-        this.direccion = direccion;
+    @Override
+    public int compareTo(Registro r) {
+        Servicio s = (Servicio) r;
+        int res = ubicacion.compareTo(s.getUbicacion());
+        return res;
     }
 }

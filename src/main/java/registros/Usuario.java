@@ -2,17 +2,19 @@ package registros;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable, Comparable<Usuario> {
+public class Usuario extends Registro implements Serializable {
     private String login;
     private String contraseña;
     private String nombreCmpl;
     private String telefonoRef;
+    private String puesto;
 
     public Usuario(String[] args) {
         login = args[0];
         contraseña = args[1];
         nombreCmpl = args[2];
         telefonoRef  = args[3];
+        puesto = args[4];
     }
     
     public void setNombreCmpl(String nombreCmpl) {
@@ -46,28 +48,28 @@ public class Usuario implements Serializable, Comparable<Usuario> {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+    
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
 
-    @Override
-    public int compareTo(Usuario usr) {
-        return login.compareTo(usr.getLogin());
+    public String getPuesto() {
+        return puesto;
     }
     
     public String toStringList(){
         String res = "";
-        res = addTab(login, 2);
-        res = addTab(contraseña, 2);
-        res = addTab(nombreCmpl, 4);
-        res = telefonoRef;
+        res += addTab(login, 2);
+        res += addTab(contraseña, 3);
+        res += addTab(nombreCmpl, 5);
+        res += addTab(telefonoRef,2);
+        res += puesto;
         return res;
     }
-    
-    private String addTab(String string,int tabs){
-        int aux = string.length();
-        tabs = tabs - (aux / 8);
-        while(tabs > 0){
-            string = string + "\t";
-            tabs--;
-        }
-        return string;
+
+    @Override
+    public int compareTo(Registro r) {
+        Usuario u = (Usuario) r;
+        return login.compareTo(u.getLogin());
     }
 }

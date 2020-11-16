@@ -5,11 +5,9 @@
  */
 package registros;
 
-/**
- *
- * @author Lenovo
- */
-public class Oferta {
+import java.io.Serializable;
+
+public class Oferta implements Serializable{
 
     private String descripcion;
     private int porcentajeDescuento;
@@ -22,5 +20,4 @@ public class Oferta {
     public int getPorcentajeDesc() {
         return porcentajeDescuento;
     }
-    
 }

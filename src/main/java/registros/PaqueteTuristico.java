@@ -5,6 +5,8 @@ import ed.ListaCDE;
 import java.io.Serializable;
 
 
+//falta reg
+
 public class PaqueteTuristico implements Serializable
 {
     private int precio;
