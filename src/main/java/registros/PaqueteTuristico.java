@@ -5,99 +5,101 @@ import ed.ListaCDE;
 import java.io.Serializable;
 
 
-//falta reg
-
-public class PaqueteTuristico implements Serializable
+public class PaqueteTuristico extends Registro implements Serializable
 {
-    private int precio;
-    private Oferta oferta;
     private String lugar;   //Departamento
+    private int precio;
     private String nombre;
     private String descripcion;
+    private Oferta oferta;
     private ListaCDE<Servicio> listaServicios;
     private ListaCDE<String> itinerario;
-    
-    public PaqueteTuristico(int precio, String lugar, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc){
+
+    public PaqueteTuristico(String lugar, int precio, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc){
         this. precio = precio;
         this.lugar = lugar;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        oferta = new Oferta(porcentajeDescuento, descripcionDesc);
-        listaServicios = null;
-        itinerario = null;
+        if(porcentajeDescuento == 0 && descripcionDesc.equals("")) oferta = null;
+        else oferta = new Oferta(porcentajeDescuento, descripcionDesc);
+        listaServicios = new ListaCDE<Servicio>();
+        itinerario = new ListaCDE<String>();
     }
-    public PaqueteTuristico(int precio, String lugar, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc, Servicio servicio, String itinerario){
-        this. precio = precio;
-        this.lugar = lugar;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        oferta = new Oferta(porcentajeDescuento, descripcionDesc);
-        listaServicios.add(servicio);
-        this.itinerario.add(itinerario);
+
+    public int getPrecio() {
+        return precio;
     }
-    
-    public String printltinerario(int x){
-        return itinerario.getPosition(x);
+
+    public Oferta getOferta() {
+        return oferta;
     }
-    public String mostrarPrecios(){
-        String monto;
-        if(oferta == null){
-            monto = "" + precio;
-        }else{
-            monto = "" + (precio - (precio * (oferta.getPorcentajeDesc())));
-        }
-        return monto;
-    }
- 
-    public void getPrecio(int pre){
-        precio = pre;
-    }
-    public int setPrecio(){
-        int monto;
-        if(oferta == null){
-            monto = precio;
-        }else{
-            monto = precio - (precio * (oferta.getPorcentajeDesc()));
-        }
-        return monto;
-    }
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
-    }
+
     public String getLugar() {
         return lugar;
     }
-    public void getNombre(String nom){
-        nombre = nom;
-    }
-    public String setNombre(){
+
+    public String getNombre() {
         return nombre;
     }
-    public void getDescripcion(String des){
-        descripcion = des;
-    }
-    public String setDescripcion(){
+
+    public String getDescripcion() {
         return descripcion;
     }
-    public Oferta setOferta(){
-        return oferta;
+
+    public ListaCDE<Servicio> getListaServicios() {
+        return listaServicios;
     }
-    public void añadirServicio(Servicio x){
-        listaServicios.add(x);
+
+    public ListaCDE<String> getItinerario() {
+        return itinerario;
     }
-    public Servicio setServicios(int x){
-        return listaServicios.getPosition(x);
+    
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
-    public void eliminarServicio(int x){
-        listaServicios.remove(x);
+
+    public void setOferta(Oferta oferta) {
+        this.oferta = oferta;
     }
-    public void añadirItinerario(String x){
-        itinerario.add(x);
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
-    public String setItinerario(int x){
-        return itinerario.getPosition(x);
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-    public void eliminarItinerario(int x){
-        itinerario.remove(x);
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setListaServicios(ListaCDE<Servicio> listaServicios) {
+        this.listaServicios = listaServicios;
+    }
+
+    public void setItinerario(ListaCDE<String> itinerario) {
+        this.itinerario = itinerario;
+    }
+    
+    
+    @Override
+    public String toStringList() {
+        String res = "";
+        res += addTab(lugar, 2);
+        res += addTab("" + precio, 1) + "BS";
+        res += addTab(nombre, 3);
+        if(oferta != null)
+            res += "SI/n";
+        else
+            res += "NO/n";
+        res += descripcion;
+        return res;
+    }
+
+    @Override
+    public int compareTo(Registro r) {
+        PaqueteTuristico p = (PaqueteTuristico) r;
+        return (lugar.compareTo(p.getLugar()) * 10000) + (p.getPrecio()-precio);
     }
 }    

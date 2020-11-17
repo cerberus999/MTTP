@@ -18,22 +18,6 @@ public class Main {
     private static ListaCDE<Registro> listaTransportes = null;
     private static ListaCDE<Registro> listaUsuarios = null;
     
-    public static void main(String[] args) {
-        listaClientes = recuperarLista("Clientes");
-        listaPaquetesTuristicos = recuperarLista("PaquetesTuristicos");
-        listaReservas= recuperarLista("Reservas");
-        listaServicios = recuperarLista("Servicios"); 
-        listaTransportes = recuperarLista("Transporte");
-        listaUsuarios = recuperarLista("Usuarios");
-        int sec;
-        do {
-            sec = 0;
-            printInterface();
-            sec = lector.nextInt();
-            select(sec);
-        } while (sec != 6);
-    }
-
     private static void printInterface() {
         System.out.println("--------------------NOVASOFT--------------------");
         System.out.println("                 MENÚ VER 0.1");
@@ -43,7 +27,30 @@ public class Main {
         System.out.println("3.- IMPRIMIR LISTA DE CLIENTES");
         System.out.println("4.- REGISTRAR USUARIO");
         System.out.println("5.- IMPRIMIR USUARIOS");
-        System.out.println("6.- CERRAR GESTOR");
+        System.out.println("6.- REGISTRAR PAQUETE TURISTICO");
+        System.out.println("7.- IMPRIMIR PAQUETES TURISTICOS");
+        System.out.println("8.- REGISTRAR RESERVA");
+        System.out.println("9.- IMPRIMIR RESERVA");
+        System.out.println("10.- REGISTRAR SERVICIO");
+        System.out.println("11.- IMPRIMIR SERVICIOS");
+        System.out.println("12.- REGISTRAR TRANSPORTE");
+        System.out.println("13.- IMPRIMIR TRANSPORTES");
+        System.out.println("14.- CERRAR GESTOR");
+    }
+    
+    public static void main(String[] args) {
+        listaClientes = recuperarLista("Clientes");
+        listaPaquetesTuristicos = recuperarLista("PaquetesTuristicos");
+        listaReservas= recuperarLista("Reservas");
+        listaServicios = recuperarLista("Servicios"); 
+        listaTransportes = recuperarLista("Transporte");
+        listaUsuarios = recuperarLista("Usuarios");
+        int sec;
+        do {
+            printInterface();
+            sec = lector.nextInt();
+            select(sec);
+        } while (sec != 14);
     }
 
     private static void select(int select) {
@@ -52,7 +59,7 @@ public class Main {
             case 1:
                 texto = new String[]{"INGRESE CI:\n", "INGRESE NOMBRE:\n", "INGRESE APELLIDOS:\n",
                     "INGRESE TELEFONO DE REFERENCIA:\n", "INGRESE EMAIL:\n"};
-                registrarCliente(texto);
+                registrar(texto,1,listaClientes);
                 break;
             case 2:
                 System.out.println("Ingrese el nro de carnet que desea buscar:");
@@ -70,92 +77,87 @@ public class Main {
             case 4:
                 texto = new String[]{"INGRESE LOGIN:\n", "INGRESE CONTRASEÑA:\n", "INGRESE NOMBRE COMPLETO:\n",
                     "INGRESE TELEFONO DE REFERENCIA:\n", "INGRESE EL CARGO QUE OCUPA:\n"};
-                registrarUsuario(texto);
+                registrar(texto,6,listaUsuarios);
                 break;
             case 5:
                 printDataList(listaUsuarios);
                 break;
-            
+            case 6:
+                texto = new String[]{"INGRESE DEPARTAMENTO:\n", "INGRESE PRECIO:\n", "INGRESE NOMBRE DEL PAQUETE TURISTICO:\n",
+                    "INGRESE DESCRIPCION:\n", "INGRESE PORCENTAJE DE DESCUENTO:\n","INGRESE DESCRIPCION DEL DESCUENTO\n"};
+                registrar(texto,2,listaPaquetesTuristicos);
+                break;
+            case 7:
+                printDataList(listaPaquetesTuristicos);
+                break;
+            case 8:
+                texto = new String[]{"INGRESE NUMERO DE PERSONAS:\n", "INGRESE CI DEL CLIENTE:\n"};
+                registrar(texto,3,listaReservas);
+                break;
+            case 9:
+                printDataList(listaReservas);
+                break;
+            case 10:
+                texto = new String[]{"INGRESE UBICACION:\n", "INGRESE NOMBRE DE LA EMPRESA:\n", "INGRESE NUMERO DE TELEFONO:\n",
+                    "INGRESE PRECIO:\n", "INGRESE EL PORCENTAJE DE DESCUENTO:\n", "INGRESE LA DESCRIPCION DEL DESCUENTO\n"};
+                registrar(texto,4,listaServicios);
+                break;
+            case 11:
+                printDataList(listaServicios);
+                break;
+            case 12:
+                texto = new String[]{"INGRESE UBICACION:\n", "INGRESE NOMBRE DE LA EMPRESA:\n", "INGRESE NUMERO DE TELEFONO:\n",
+                    "INGRESE PRECIO:\n", "INGRESE EL PORCENTAJE DE DESCUENTO:\n", "INGRESE LA DESCRIPCION DEL DESCUENTO\n",
+                    "INGRESE DESTINO:\n", "INGRESE FECHA Y HORA DE SALIDA:\n","INGRESE CANTIDAD DE ASIENTOS DISPONIBLES\n"};
+                registrar(texto,5,listaTransportes);
+                break;
+            case 13:
+                printDataList(listaTransportes);
+                break;
         }
     }
     
-    private static void registrarUsuario(String[] texto) {
-        String[] datos = new String[5];
+    private static void registrar(String[] texto, int clase, ListaCDE<Registro> lista) {
+        String archivo = "";
+        String[] datos = new String[texto.length];
         lector.nextLine();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < texto.length; i++) {
             System.out.print(texto[i]);
             datos[i] = lector.nextLine();
         }
-        Usuario usr = new Usuario(datos);
-        almacenamientoOrdenado(usr,listaUsuarios);
-        guardarLista(listaUsuarios, "Usuarios");
-    }
-
-    private static void registrarCliente(String[] texto) {
-        String[] datos = new String[5];
-        lector.nextLine();
-        for (int i = 0; i < 5; i++) {
-            System.out.print(texto[i]);
-            datos[i] = lector.nextLine(); 
-            switch(i){
-                case 0:
-                datos[i] = datos[i].toUpperCase();
-                if(!validarRango(7,9,datos[i].length())){    
-                    System.out.println("Carnet no valido");
-                    i--;                        
-                }
+        Registro r = null;
+        switch(clase){
+            case 1:
+                r = new Cliente(datos);
+                archivo = "Clientes";
                 break;
-                case 1:
-                datos[i] = datos[i].toUpperCase();
-                for(int j=0;j<datos[i].length(); j++){
-                    if(validarRango(48,57,datos[i].charAt(j))){
-                        System.out.println("Nombre no valido contiene número");
-                        i--;
-                        j = datos[i].length();
-                    }                    
-                }
+            case 2:
+                r = new PaqueteTuristico(datos[0],Integer.parseInt(datos[1]),datos[2],datos[3],Integer.parseInt(datos[4]),datos[5]);
+                archivo = "PaquetesTuristicos";
                 break;
-                case 2:
-                datos[i] = datos[i].toUpperCase();    
-                for(int j=0;j<datos[i].length(); j++){
-                    if(validarRango(48,57,datos[i].charAt(j))){
-                        System.out.println("Apellido no valido contiene número");
-                        i--;
-                        j = datos[i].length();
-                    }                    
-                }
+            case 3:
+                Cliente aux = (Cliente) buscarRegistro(datos[2]);
+                r = new Reserva(datos[0],datos[1],aux);
+                archivo = "Reservas";
                 break;
-                case 3:
-                for(int j=0;j<datos[i].length(); j++){
-                    if(!validarRango(48,57,datos[i].charAt(j))){
-                        System.out.println("telefono no valido contiene letras");
-                        i--;
-                        j = datos[i].length();
-                    }                    
-                }
+            case 4:
+                r = new Servicio(datos);
+                archivo = "Servicios";
                 break;
-                case 4:
-                boolean aux = false,au = false;    
-                for(int j=0;j<datos[i].length(); j++){
-                    if(datos[i].charAt(j) == '@'){
-                        aux = true;
-                    }
-                    if(datos[i].charAt(j) == '.'){
-                        au = true;
-                    }                    
-                }
-                if(aux == false || au == false){
-                    System.out.println("Correo no valido");
-                    i--;
-                }
+            case 5:
+                String[] data = new String[]{datos[0],datos[1],datos[2],datos[3],datos[4],datos[5]};
+                r = new Transporte(data,datos[6],datos[7],Integer.parseInt(datos[8]));
+                archivo = "Transporte";
                 break;
-            }
+            case 6:
+                r = new Usuario(datos);
+                archivo = "Usuarios";
+                break;
         }
-        Cliente cli = new Cliente(datos);
-        almacenamientoOrdenado(cli,listaClientes);
-        guardarLista(listaClientes, "Clientes");
+        almacenamientoOrdenado(r, lista);
+        guardarLista(lista, archivo);
     }
-    
+   
     private static void almacenamientoOrdenado(Registro reg,ListaCDE<Registro> lista) {
         NodoDE<Registro> aux = null;
         if (lista.isEmpty()) {
@@ -256,4 +258,82 @@ public class Main {
             res = false;
         return res;
     }
+    
+    private static void registrarUsuario(String[] texto) {
+        String[] datos = new String[5];
+        lector.nextLine();
+        for (int i = 0; i < 5; i++) {
+            System.out.print(texto[i]);
+            datos[i] = lector.nextLine();
+        }
+        Usuario usr = new Usuario(datos);
+        almacenamientoOrdenado(usr,listaUsuarios);
+        guardarLista(listaUsuarios, "Usuarios");
+    }
+
+    private static void registrarCliente(String[] texto) {
+        String[] datos = new String[5];
+        lector.nextLine();
+        for (int i = 0; i < 5; i++) {
+            System.out.print(texto[i]);
+            datos[i] = lector.nextLine(); 
+            switch(i){
+                case 0:
+                datos[i] = datos[i].toUpperCase();
+                if(!validarRango(7,9,datos[i].length())){    
+                    System.out.println("Carnet no valido");
+                    i--;                        
+                }
+                break;
+                case 1:
+                datos[i] = datos[i].toUpperCase();
+                for(int j=0;j<datos[i].length(); j++){
+                    if(validarRango(48,57,datos[i].charAt(j))){
+                        System.out.println("Nombre no valido contiene número");
+                        i--;
+                        j = datos[i].length();
+                    }                    
+                }
+                break;
+                case 2:
+                datos[i] = datos[i].toUpperCase();    
+                for(int j=0;j<datos[i].length(); j++){
+                    if(validarRango(48,57,datos[i].charAt(j))){
+                        System.out.println("Apellido no valido contiene número");
+                        i--;
+                        j = datos[i].length();
+                    }                    
+                }
+                break;
+                case 3:
+                for(int j=0;j<datos[i].length(); j++){
+                    if(!validarRango(48,57,datos[i].charAt(j))){
+                        System.out.println("telefono no valido contiene letras");
+                        i--;
+                        j = datos[i].length();
+                    }                    
+                }
+                break;
+                case 4:
+                boolean aux = false,au = false;    
+                for(int j=0;j<datos[i].length(); j++){
+                    if(datos[i].charAt(j) == '@'){
+                        aux = true;
+                    }
+                    if(datos[i].charAt(j) == '.'){
+                        au = true;
+                    }                    
+                }
+                if(aux == false || au == false){
+                    System.out.println("Correo no valido");
+                    i--;
+                }
+                break;
+            }
+        }
+        Cliente cli = new Cliente(datos);
+        almacenamientoOrdenado(cli,listaClientes);
+        guardarLista(listaClientes, "Clientes");
+    }
+    
 }

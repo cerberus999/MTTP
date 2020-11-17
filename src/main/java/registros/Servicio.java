@@ -2,8 +2,6 @@ package registros;
 
 import java.io.Serializable;
 
-//falta reg
-
 public class Servicio extends Registro implements Serializable{
     private String ubicacion;
     private String nombreEmpresa;
@@ -11,12 +9,20 @@ public class Servicio extends Registro implements Serializable{
     private int precio;
     Oferta oferta;
 
-    public Servicio(String ubicacion, String nombreEmpresa, String numeroTelf, int precio, Oferta oferta){
-        this.ubicacion = ubicacion;
-        this.nombreEmpresa = nombreEmpresa;
-        numeroTelefono = numeroTelf;
+    public Servicio(String[] datos){
+        ubicacion = datos[0];
+        nombreEmpresa = datos[1];
+        numeroTelefono = datos[2];
+        precio = Integer.parseInt(datos[3]);
+        oferta = new Oferta(Integer.parseInt(datos[4]),datos[5]);
+    }
+    
+    public Servicio(String ubi,String nomEmpr, String nroTelf, int precio,int porDesc, String descripcionDesc){
+        ubicacion = ubi;
+        nombreEmpresa = nomEmpr;
+        numeroTelefono = nroTelf;
         this.precio = precio;
-        this.oferta = oferta;
+        oferta = new Oferta(porDesc,descripcionDesc);
     }
     
     public void setUbicacion(String ubicacion) {

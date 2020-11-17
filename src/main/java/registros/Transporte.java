@@ -9,10 +9,10 @@ public class Transporte extends Servicio implements Serializable{
     private int asientosDisponibles;
     //ListaCDE<Venta> venta;
     
-    public Transporte(String[] datos, int precio, Date fecha, int asientosDisp, Oferta oferta){
-        super(datos[0],datos[1],datos[2],precio,oferta);
-        destino = datos[3];
-        fechaHoraSalida = fecha;
+    public Transporte(String[] datos, String destino, String fecha, int asientosDisp){
+        super(datos);
+        this.destino = destino;
+        fechaHoraSalida = new Date(fecha); //formato "mm/dd/aaaa hh:mm:ss";
         asientosDisponibles = asientosDisp;
     }
 
@@ -43,9 +43,9 @@ public class Transporte extends Servicio implements Serializable{
     @Override
     public String toStringList() {
         String res = "";
-        res += super.getUbicacion();
+        res += addTab(super.getUbicacion(), 2) ;
         res += addTab(destino, 2);
-        res += addTab(fechaHoraSalida.toString(), 2);
+        res += addTab(fechaHoraSalida.toString(), 5);
         res += addTab("" + asientosDisponibles, 1);
         res += addTab(super.getNombreEmpresa(), 2);
         return res;

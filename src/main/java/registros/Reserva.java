@@ -6,47 +6,55 @@ import ed.*;
 import java.io.Serializable;
 
 public class Reserva extends Registro implements Serializable {
-    private int codigoVuelo;
-    private ListaCDE<String> asientos;
+    private int codReserva;
+    private int nroDePersonas;
     private Cliente cliente;
 
-    public Reserva(int codigoVuelo, ListaCDE<String> asientos,Cliente cliente){
-        this.codigoVuelo=codigoVuelo;
-        this.asientos=asientos;
-        this.cliente=cliente;
+    public Reserva(String arg1,String arg2 ,Cliente cliente){
+        Integer i = 0;
+        i.parseInt(arg1);
+        this.codReserva = i.intValue();
+        i.parseInt(arg2);
+        this.nroDePersonas = i.intValue();
+        this.cliente = cliente;
+    }
+    
+    public void setCodReserva(int codReserva) {
+        this.codReserva = codReserva;
     }
 
-    public int getCodigoVuelo(){
-        return codigoVuelo;
+    public void setNroDePersonas(int nroDePersonas) {
+        this.nroDePersonas = nroDePersonas;
     }
 
-    public ListaCDE<String> getAsientos(){
-        return asientos;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
-    //cambiar a cliente
-    public Cliente getCliente(){
+
+    public int getCodReserva() {
+        return codReserva;
+    }
+
+    public int getNroDePersonas() {
+        return nroDePersonas;
+    }
+
+    public Cliente getCliente() {
         return cliente;
-    }
-
-    public void setCodigoVuelo(int codigo){
-        codigoVuelo=codigo;
-    }
-
-    public void setAsientos(ListaCDE<String> asientos){
-        this.asientos=asientos;
-    }
-    //cambiar Cliente
-    public void setCliente(Cliente cliente){
-        this.cliente=cliente;
     }
 
     @Override
     public String toStringList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String res = "";
+        res = addTab("" + codReserva, 2) + addTab("" + nroDePersonas, 1) + "Reserva a nombre de:/n";
+        res = cliente.toStringList();
+        return res;
     }
 
     @Override
     public int compareTo(Registro r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Reserva re = (Reserva) r;
+        int res = re.getCodReserva() - codReserva;
+        return res;
     }
 }
