@@ -146,6 +146,7 @@ public class ListaCDE<T> implements Serializable{
         inicio = null;
     }
 
+    //Actualiza los indices los elementos de la ListaCDE
     private void refresh(NodoDE<T> nodo){
         if(!nodo.getAnt().equals(inicio.getAnt()))
             nodo.setIndex(nodo.getAnt().getIndex() + 1);
@@ -157,6 +158,7 @@ public class ListaCDE<T> implements Serializable{
             nodo.setIndex(size-1);
     }
 
+    //Retorna un nodo en la posicion indexDest teniendo de punto de partida nodoAct
     public NodoDE getNodo(int indexDest, NodoDE<T> nodoAct){
         NodoDE<T> res = null;
         if(!isEmpty()){
@@ -187,6 +189,7 @@ public class ListaCDE<T> implements Serializable{
         return res;
      }
 
+    //Introduce un nuevo nodo "nuevo" despues de nodoAnt y actualiza los indices siguientes al nodo
     public boolean addNodo(NodoDE<T> nodoAnt, NodoDE<T> nuevo){
         if(isEmpty()){
             inicio = nuevo;
@@ -200,4 +203,5 @@ public class ListaCDE<T> implements Serializable{
         }refresh(nuevo);
         return true;
     }
+    
 }

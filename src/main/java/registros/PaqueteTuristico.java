@@ -82,17 +82,16 @@ public class PaqueteTuristico extends Registro implements Serializable
         this.itinerario = itinerario;
     }
     
-    
     @Override
     public String toStringList() {
         String res = "";
         res += addTab(lugar, 2);
-        res += addTab("" + precio, 1) + "BS";
+        res += addTab("" + precio + " BS", 1);
         res += addTab(nombre, 3);
         if(oferta != null)
-            res += "SI/n";
+            res += "SI\n";
         else
-            res += "NO/n";
+            res += "NO\n";
         res += descripcion;
         return res;
     }

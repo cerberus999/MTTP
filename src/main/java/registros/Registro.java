@@ -9,9 +9,14 @@ import java.io.Serializable;
 
 public abstract class Registro implements Comparable<Registro>, Serializable{
     
+    //Imprime los datos mas concurridos del registro en una cadena horizontal
     public abstract String toStringList();
+    
+    //Retorna un numero entero al comparar este registro con otro, para otorgar un orden entre ellos 
+    @Override
     public abstract int compareTo(Registro r);
     
+    //Añade espaciado a una cadena y la retorna
     protected String addTab(String string,int tabs){
         int aux = string.length();
         tabs = tabs - (aux / 8);
@@ -20,5 +25,5 @@ public abstract class Registro implements Comparable<Registro>, Serializable{
             tabs--;
         }
         return string;
-    }
+    }    
 }

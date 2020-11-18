@@ -111,6 +111,7 @@ public class Cliente extends Registro implements Serializable {
         return res;
     }
     
+    @Override
     public String toStringList(){
         String res = "";
         res += addTab(CI,2);

@@ -18,19 +18,21 @@ public class Main {
     private static ListaCDE<Registro> listaTransportes = null;
     private static ListaCDE<Registro> listaUsuarios = null;
     
-    private static void printInterface() {
+    
+    //Imprime una interfaz para consola
+    private static void imprimirInterfaz() {
         System.out.println("--------------------NOVASOFT--------------------");
         System.out.println("                 MENÚ VER 0.1");
         System.out.println("***********AGENCIA DE VIAJES ***********");
-        System.out.println("1.- REGISTRAR UN CLIENTE");
-        System.out.println("2.- BUSCAR CLIENTE(CI)");
-        System.out.println("3.- IMPRIMIR LISTA DE CLIENTES");
-        System.out.println("4.- REGISTRAR USUARIO");
-        System.out.println("5.- IMPRIMIR USUARIOS");
-        System.out.println("6.- REGISTRAR PAQUETE TURISTICO");
-        System.out.println("7.- IMPRIMIR PAQUETES TURISTICOS");
-        System.out.println("8.- REGISTRAR RESERVA");
-        System.out.println("9.- IMPRIMIR RESERVA");
+        System.out.println("1.-  REGISTRAR UN CLIENTE");
+        System.out.println("2.-  BUSCAR CLIENTE(CI)");
+        System.out.println("3.-  IMPRIMIR LISTA DE CLIENTES");
+        System.out.println("4.-  REGISTRAR USUARIO");
+        System.out.println("5.-  IMPRIMIR USUARIOS");
+        System.out.println("6.-  REGISTRAR PAQUETE TURISTICO");
+        System.out.println("7.-  IMPRIMIR PAQUETES TURISTICOS");
+        System.out.println("8.-  REGISTRAR RESERVA");
+        System.out.println("9.-  IMPRIMIR RESERVA");
         System.out.println("10.- REGISTRAR SERVICIO");
         System.out.println("11.- IMPRIMIR SERVICIOS");
         System.out.println("12.- REGISTRAR TRANSPORTE");
@@ -38,6 +40,7 @@ public class Main {
         System.out.println("14.- CERRAR GESTOR");
     }
     
+    //Recupera listas e inicializa el programa(Imprime la intefaz y espera por una eleccion)
     public static void main(String[] args) {
         listaClientes = recuperarLista("Clientes");
         listaPaquetesTuristicos = recuperarLista("PaquetesTuristicos");
@@ -47,13 +50,15 @@ public class Main {
         listaUsuarios = recuperarLista("Usuarios");
         int sec;
         do {
-            printInterface();
+            imprimirInterfaz();
             sec = lector.nextInt();
-            select(sec);
+            seleccionar(sec);
         } while (sec != 14);
     }
 
-    private static void select(int select) {
+    
+    //Selecciona una opcion del menu
+    private static void seleccionar(int select) {
         String[] texto;
         switch (select) {
             case 1:
@@ -66,13 +71,13 @@ public class Main {
                 lector.nextLine();
                 Registro buscado = buscarRegistro(lector.nextLine());
                 if (buscado != null) {
-                    printDatos(buscado);
+                    imprimirDatos(buscado);
                 } else {
                     System.out.println("El cliente no fue encontrado");
                 }
                 break;
             case 3:
-                printDataList(listaClientes);
+                imprimirListaDeDatos(listaClientes);
                 break;
             case 4:
                 texto = new String[]{"INGRESE LOGIN:\n", "INGRESE CONTRASEÑA:\n", "INGRESE NOMBRE COMPLETO:\n",
@@ -80,7 +85,7 @@ public class Main {
                 registrar(texto,6,listaUsuarios);
                 break;
             case 5:
-                printDataList(listaUsuarios);
+                imprimirListaDeDatos(listaUsuarios);
                 break;
             case 6:
                 texto = new String[]{"INGRESE DEPARTAMENTO:\n", "INGRESE PRECIO:\n", "INGRESE NOMBRE DEL PAQUETE TURISTICO:\n",
@@ -88,14 +93,14 @@ public class Main {
                 registrar(texto,2,listaPaquetesTuristicos);
                 break;
             case 7:
-                printDataList(listaPaquetesTuristicos);
+                imprimirListaDeDatos(listaPaquetesTuristicos);
                 break;
             case 8:
                 texto = new String[]{"INGRESE NUMERO DE PERSONAS:\n", "INGRESE CI DEL CLIENTE:\n"};
                 registrar(texto,3,listaReservas);
                 break;
             case 9:
-                printDataList(listaReservas);
+                imprimirListaDeDatos(listaReservas);
                 break;
             case 10:
                 texto = new String[]{"INGRESE UBICACION:\n", "INGRESE NOMBRE DE LA EMPRESA:\n", "INGRESE NUMERO DE TELEFONO:\n",
@@ -103,7 +108,7 @@ public class Main {
                 registrar(texto,4,listaServicios);
                 break;
             case 11:
-                printDataList(listaServicios);
+                imprimirListaDeDatos(listaServicios);
                 break;
             case 12:
                 texto = new String[]{"INGRESE UBICACION:\n", "INGRESE NOMBRE DE LA EMPRESA:\n", "INGRESE NUMERO DE TELEFONO:\n",
@@ -112,11 +117,12 @@ public class Main {
                 registrar(texto,5,listaTransportes);
                 break;
             case 13:
-                printDataList(listaTransportes);
+                imprimirListaDeDatos(listaTransportes);
                 break;
         }
     }
     
+    //Con datos recopilados en seleccionar() crea un objeto para guardarse posteriormente en su lista respectiva
     private static void registrar(String[] texto, int clase, ListaCDE<Registro> lista) {
         String archivo = "";
         String[] datos = new String[texto.length];
@@ -157,7 +163,8 @@ public class Main {
         almacenamientoOrdenado(r, lista);
         guardarLista(lista, archivo);
     }
-   
+    
+    //Introduce un objeto en la posicion que corresponde mediante parametros ya determinados por su respectiva clase
     private static void almacenamientoOrdenado(Registro reg,ListaCDE<Registro> lista) {
         NodoDE<Registro> aux = null;
         if (lista.isEmpty()) {
@@ -172,6 +179,8 @@ public class Main {
         }
     }
 
+    //Introduce un objeto en la posicion que corresponde mediante parametros ya determinados por su respectiva clase
+    //Parte recursiva
     private static void almacenamientoOrdenado(int[] limites, NodoDE<Registro> aux, Registro reg,ListaCDE<Registro> lista) {
         int index = limites[0] + (limites[1] - limites[0]) / 2;
         aux = lista.getNodo(index, aux);
@@ -186,6 +195,7 @@ public class Main {
         }
     }
 
+    
     private static Registro buscarRegistro(String CI) {
         Registro aux = new Cliente(new String[]{CI, "", "", "", ""});
         Registro res = null;
@@ -216,7 +226,7 @@ public class Main {
         return res;
     }
 
-    private static void printDatos(Registro r) {
+    private static void imprimirDatos(Registro r) {
         Cliente c = (Cliente) r; 
         System.out.println("CI:" + c.getCI()
                 + "\nNombre Completo: " + c.getNombre() + c.getApellidos()
@@ -224,7 +234,8 @@ public class Main {
                 + "\neMail: " + c.geteMail());
     }
 
-    private static void printDataList(ListaCDE<Registro> lista) {
+    //Imprime en consola una lista con todos los datos almacenados de forma persistente hasta el momento 
+    private static void imprimirListaDeDatos(ListaCDE<Registro> lista) {
         NodoDE<Registro> aux = null;
         for (int i = 0; i < lista.size(); i++) {
             aux = lista.getNodo(i, aux);
@@ -232,6 +243,7 @@ public class Main {
         }
     }
 
+    //Realiza el guardado de forma persistente de los datos en una lista
     public static void guardarLista(ListaCDE<Registro> lista, String nombre) {
         try ( ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(nombre + ".txt"))) {
             salida.writeObject(lista);
@@ -241,6 +253,7 @@ public class Main {
         }
     }
 
+    //Recupera los datos almacenados de manera persitente en una lista 
     public static ListaCDE<Registro> recuperarLista(String nombre) {
         ListaCDE<Registro> ret = new ListaCDE<>();
         try ( ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(nombre + ".txt"))) {
@@ -252,14 +265,15 @@ public class Main {
         return ret;
     }
     
-    private static boolean validarRango(int a, int b, int n){
+    //Retorna true si el valor n esta entre (a,b)
+    /*private static boolean validarRango(int a, int b, int n){
         boolean res = true;
         if(n < a || n > b)
             res = false;
         return res;
     }
-    
-    private static void registrarUsuario(String[] texto) {
+    */
+    /*private static void registrarUsuario(String[] texto) {
         String[] datos = new String[5];
         lector.nextLine();
         for (int i = 0; i < 5; i++) {
@@ -335,5 +349,5 @@ public class Main {
         almacenamientoOrdenado(cli,listaClientes);
         guardarLista(listaClientes, "Clientes");
     }
-    
+    */
 }
