@@ -6,7 +6,7 @@ public class ListaCDE<T> implements Serializable{
     private NodoDE<T> inicio;
     private int size = 0;
 
-    public ListaCDE(){
+    public ListaCDE(){ 
         inicio = null;
     }
 

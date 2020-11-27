@@ -17,7 +17,22 @@ public class Main {
     private static ListaCDE<Registro> listaServicios = null;
     private static ListaCDE<Registro> listaTransportes = null;
     private static ListaCDE<Registro> listaUsuarios = null;
-    
+        
+    //Recupera listas e inicializa el programa(Imprime la intefaz y espera por una eleccion)
+    public static void main(String[] args) {
+        listaClientes = recuperarLista("Clientes");
+        listaPaquetesTuristicos = recuperarLista("PaquetesTuristicos");
+        listaReservas= recuperarLista("Reservas");
+        listaServicios = recuperarLista("Servicios"); 
+        listaTransportes = recuperarLista("Transporte");
+        listaUsuarios = recuperarLista("Usuarios");
+        int sec;
+        do {
+            imprimirInterfaz();
+            sec = lector.nextInt();
+            seleccionar(sec);
+        } while (sec != 14);
+    }
     
     //Imprime una interfaz para consola
     private static void imprimirInterfaz() {
@@ -39,23 +54,6 @@ public class Main {
         System.out.println("13.- IMPRIMIR TRANSPORTES");
         System.out.println("14.- CERRAR GESTOR");
     }
-    
-    //Recupera listas e inicializa el programa(Imprime la intefaz y espera por una eleccion)
-    public static void main(String[] args) {
-        listaClientes = recuperarLista("Clientes");
-        listaPaquetesTuristicos = recuperarLista("PaquetesTuristicos");
-        listaReservas= recuperarLista("Reservas");
-        listaServicios = recuperarLista("Servicios"); 
-        listaTransportes = recuperarLista("Transporte");
-        listaUsuarios = recuperarLista("Usuarios");
-        int sec;
-        do {
-            imprimirInterfaz();
-            sec = lector.nextInt();
-            seleccionar(sec);
-        } while (sec != 14);
-    }
-
     
     //Selecciona una opcion del menu
     private static void seleccionar(int select) {
@@ -142,8 +140,8 @@ public class Main {
                 archivo = "PaquetesTuristicos";
                 break;
             case 3:
-                Cliente aux = (Cliente) buscarRegistro(datos[2]);
-                r = new Reserva(datos[0],datos[1],aux);
+                Cliente aux = (Cliente) buscarRegistro(datos[1]);
+                r = new Reserva(datos[0],aux);
                 archivo = "Reservas";
                 break;
             case 4:
@@ -195,7 +193,6 @@ public class Main {
         }
     }
 
-    
     private static Registro buscarRegistro(String CI) {
         Registro aux = new Cliente(new String[]{CI, "", "", "", ""});
         Registro res = null;

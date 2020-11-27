@@ -10,12 +10,9 @@ public class Reserva extends Registro implements Serializable {
     private int nroDePersonas;
     private Cliente cliente;
 
-    public Reserva(String arg1,String arg2 ,Cliente cliente){
-        Integer i = 0;
-        i.parseInt(arg1);
-        this.codReserva = i.intValue();
-        i.parseInt(arg2);
-        this.nroDePersonas = i.intValue();
+    public Reserva(String arg1, Cliente cliente){
+        this.codReserva = generarCodigo();
+        this.nroDePersonas = Integer.parseInt(arg1);
         this.cliente = cliente;
     }
     
@@ -46,8 +43,8 @@ public class Reserva extends Registro implements Serializable {
     @Override
     public String toStringList() {
         String res = "";
-        res = addTab("" + codReserva, 2) + addTab("" + nroDePersonas, 1) + "Reserva a nombre de:/n";
-        res = cliente.toStringList();
+        res = addTab("" + codReserva, 2) + addTab("" + nroDePersonas, 1) + "Reserva a nombre de:\n";
+        res += cliente.toStringList();
         return res;
     }
 
@@ -56,5 +53,11 @@ public class Reserva extends Registro implements Serializable {
         Reserva re = (Reserva) r;
         int res = re.getCodReserva() - codReserva;
         return res;
+    }
+    
+    public int generarCodigo(){
+        int res;
+            
+        return 0;
     }
 }
