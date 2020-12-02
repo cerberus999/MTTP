@@ -15,6 +15,13 @@ public class Transporte extends Servicio implements Serializable{
         fechaHoraSalida = new Date(fecha); //formato "mm/dd/aaaa hh:mm:ss";
         asientosDisponibles = asientosDisp;
     }
+    
+    public Transporte(String args){
+        super(args);
+        String[] datos = args.split(",");
+        destino = datos[1];
+        fechaHoraSalida = new Date(datos[2]); //formato "mm/dd/aa hh:mm:ss";
+    }
 
     public void setDestino(String destino) {
         this.destino = destino;

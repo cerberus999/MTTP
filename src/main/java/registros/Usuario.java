@@ -3,26 +3,42 @@ package registros;
 import java.io.Serializable;
 
 public class Usuario extends Registro implements Serializable {
+    private String nombre;
+    private String apellido;
     private String login;
     private String contraseña;
-    private String nombreCmpl;
     private String telefonoRef;
     private String puesto;
 
     public Usuario(String[] args) {
-        login = args[0];
-        contraseña = args[1];
-        nombreCmpl = args[2];
-        telefonoRef  = args[3];
-        puesto = args[4];
+        nombre = args[0];
+        apellido = args[1];
+        login = args[2];
+        contraseña = args[3];
+        telefonoRef  = args[4];
+        puesto = args[5];
     }
     
-    public void setNombreCmpl(String nombreCmpl) {
-        this.nombreCmpl = nombreCmpl;
+    public Usuario(String args){
+        String[] datos = args.split(",");
+        nombre = datos[0];
+        apellido = datos[1];
+    }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNombreCmpl() {
-        return nombreCmpl;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
     }
     
     public String getLogin() {
@@ -59,9 +75,10 @@ public class Usuario extends Registro implements Serializable {
     
     public String toStringList(){
         String res = "";
+        res += addTab(nombre, 3);
+        res += addTab(apellido, 3);
         res += addTab(login, 2);
         res += addTab(contraseña, 3);
-        res += addTab(nombreCmpl, 5);
         res += addTab(telefonoRef,2);
         res += puesto;
         return res;
@@ -70,6 +87,6 @@ public class Usuario extends Registro implements Serializable {
     @Override
     public int compareTo(Registro r) {
         Usuario u = (Usuario) r;
-        return login.compareTo(u.getLogin());
+        return nombre.compareTo(u.getNombre());
     }
 }

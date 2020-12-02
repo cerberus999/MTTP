@@ -17,12 +17,9 @@ public class Servicio extends Registro implements Serializable{
         oferta = new Oferta(Integer.parseInt(datos[4]),datos[5]);
     }
     
-    public Servicio(String ubi,String nomEmpr, String nroTelf, int precio,int porDesc, String descripcionDesc){
-        ubicacion = ubi;
-        nombreEmpresa = nomEmpr;
-        numeroTelefono = nroTelf;
-        this.precio = precio;
-        oferta = new Oferta(porDesc,descripcionDesc);
+    public Servicio(String args){
+        String datos[] = args.split(",");
+        ubicacion = datos[0];
     }
     
     public void setUbicacion(String ubicacion) {

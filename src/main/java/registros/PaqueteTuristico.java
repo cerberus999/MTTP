@@ -14,16 +14,23 @@ public class PaqueteTuristico extends Registro implements Serializable
     private Oferta oferta;
     private ListaCDE<Servicio> listaServicios;
     private ListaCDE<String> itinerario;
-
-    public PaqueteTuristico(String lugar, int precio, String nombre, String descripcion,int porcentajeDescuento, String descripcionDesc){
-        this. precio = precio;
-        this.lugar = lugar;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        if(porcentajeDescuento == 0 && descripcionDesc.equals("")) oferta = null;
-        else oferta = new Oferta(porcentajeDescuento, descripcionDesc);
+    
+    public PaqueteTuristico(String[] datos){
+        lugar = datos[0];
+        precio = Integer.parseInt(datos[1]);
+        nombre = datos[2];
+        descripcion = datos[3];
+        int porcDesc = Integer.parseInt(datos[4]);
+        if(porcDesc == 0 && datos[5].equals("")) oferta = null;
+        else oferta = new Oferta(porcDesc, datos[5]);
         listaServicios = new ListaCDE<Servicio>();
         itinerario = new ListaCDE<String>();
+    }
+    
+    public PaqueteTuristico(String args){
+        String datos[] = args.split(",");
+        lugar = datos[0];
+        precio = Integer.parseInt(datos[1]);
     }
 
     public int getPrecio() {

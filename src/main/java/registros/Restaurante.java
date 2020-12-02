@@ -18,6 +18,12 @@ public class Restaurante extends Servicio implements Serializable{
         tipoDeComida = args[7];
     }
     
+    public Restaurante(String args){
+        super(args);
+        String datos[] = args.split(",");
+        cantEstrellas = (Integer.parseInt(datos[1]));
+    }
+    
     public int getCantEstrellas() {
         return cantEstrellas;
     }

@@ -1,7 +1,5 @@
 package registros;
 
-//faltaReg
-
 import ed.*;
 import java.io.Serializable;
 
@@ -14,6 +12,10 @@ public class Reserva extends Registro implements Serializable {
         this.codReserva = generarCodigo();
         this.nroDePersonas = Integer.parseInt(arg1);
         this.cliente = cliente;
+    }
+    
+    public Reserva(String args){
+        codReserva = Integer.parseInt(args);
     }
     
     public void setCodReserva(int codReserva) {
@@ -56,8 +58,8 @@ public class Reserva extends Registro implements Serializable {
     }
     
     public int generarCodigo(){
-        int res;
-            
-        return 0;
+        double res;
+        res = Math.random() * 1000000;
+        return (int) res;
     }
 }

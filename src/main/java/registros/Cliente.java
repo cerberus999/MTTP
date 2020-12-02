@@ -16,13 +16,9 @@ public class Cliente extends Registro implements Serializable {
         numeroTelf = args[3];
         eMail = args[4];
     }
-
-    public Cliente(String ci,String nombre, String apellidos, String numeroTelefono,String eMail){
-        CI = ci;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.numeroTelf = numeroTelefono;
-        this.eMail = eMail;
+    
+    public Cliente(String args){
+        CI = args;
     }
 
     public String getCI() {
